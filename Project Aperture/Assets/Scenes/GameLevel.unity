@@ -113,6 +113,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &262429114
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 262429116}
+  - component: {fileID: 262429115}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &262429115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 262429114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 841a4a15df088a74596f4984aab9713c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LeftUpCorner: {fileID: 1087887677904992, guid: 579968c9363005d4a9049e05f36728d0,
+    type: 2}
+  RightUpCorner: {fileID: 1857450281499632, guid: 7c2efca08c3cb754980f1277a13f9645,
+    type: 2}
+  LeftDownCorner: {fileID: 1879035811107790, guid: c324149ebc7e50d4dbeadf228f4e1093,
+    type: 2}
+  RightDownCorner: {fileID: 1323570240570020, guid: e3ffd750e721d6b489dc0ad66c6a6940,
+    type: 2}
+  BorderUp: {fileID: 1164401606653276, guid: 058b66b7b21e5f2448db0e9310387980, type: 2}
+  BorderDown: {fileID: 1396033939054048, guid: d2373ad7ec683da498f5d6de6a939e7b, type: 2}
+  BorderLeft: {fileID: 1986288491014524, guid: 6c50a7decf848a042bcef38b2bbcb430, type: 2}
+  BorderRight: {fileID: 1103720503903470, guid: 9d0a78f269c251748a97806563dc778e,
+    type: 2}
+  CenterBlock: {fileID: 1464871377298616, guid: 3bae42d5a824b5e4ebb6a78d9845f1dd,
+    type: 2}
+  Water: {fileID: 1589186957678068, guid: b3e7b13ec4bfb1e479261533bb12fd7b, type: 2}
+  Size: 3
+--- !u!4 &262429116
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 262429114}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,9 +212,9 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 56
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 5.4
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
