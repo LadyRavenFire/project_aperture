@@ -122,8 +122,9 @@ GameObject:
   m_Component:
   - component: {fileID: 262429116}
   - component: {fileID: 262429115}
+  - component: {fileID: 262429117}
   m_Layer: 0
-  m_Name: LevelManager
+  m_Name: GenerationManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,8 +156,9 @@ MonoBehaviour:
     type: 2}
   CenterBlock: {fileID: 1464871377298616, guid: 3bae42d5a824b5e4ebb6a78d9845f1dd,
     type: 2}
-  Water: {fileID: 1589186957678068, guid: b3e7b13ec4bfb1e479261533bb12fd7b, type: 2}
   Size: 3
+  LongOfGrassBlock: 0
+  HeightOfGrassBlock: 0
 --- !u!4 &262429116
 Transform:
   m_ObjectHideFlags: 0
@@ -170,6 +172,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &262429117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 262429114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dbe5f1dbdc6b65449c7ec6fe5326149, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LeftUpCorner: {fileID: 1813844188477488, guid: f806cac7040fea547aac435793431b73,
+    type: 2}
+  RightUpCorner: {fileID: 1609424226137556, guid: e6afe322e30c0284ab8243c182fa0e8b,
+    type: 2}
+  LeftDownCorner: {fileID: 1915987511705904, guid: 85c9571cec30fcc43b459d82d78c86f1,
+    type: 2}
+  RightDownCorner: {fileID: 1182480731422540, guid: 84cf37e321e7f2c479b6d4cd90deceed,
+    type: 2}
+  LeftUpCorner2: {fileID: 1451041035535276, guid: 35ccfff607a01674abba8a4d1db9cd39,
+    type: 2}
+  RightUpCorner2: {fileID: 1962040282648210, guid: de399cdbfcc98054995643b020b48b26,
+    type: 2}
+  LeftDownCorner2: {fileID: 1694341347618102, guid: 1f635fcd20cebaf489e46647ef9bd765,
+    type: 2}
+  RightDownCorner2: {fileID: 1625982820866482, guid: f06ee08b73a90da4d94eb05394b3e38d,
+    type: 2}
+  BorderUp: {fileID: 1709833575907044, guid: eb7fca4f54450c14d8b87cf26f3d74bf, type: 2}
+  BorderDown: {fileID: 1125514302353658, guid: ff6b6b7beee884143a9bcda93825df51, type: 2}
+  BorderLeft: {fileID: 1761039901821578, guid: 4a67b805a43b14247a44c218069ec0e8, type: 2}
+  BorderRight: {fileID: 1541716493798854, guid: 360273bb8614cf14fa015b3d8596566f,
+    type: 2}
+  BorderUp2: {fileID: 1384245613820012, guid: 47ca0c28cdc7cfe499955bf0104bad93, type: 2}
+  BorderDown2: {fileID: 1992187217730770, guid: ccf485ba21e007c42824765ab6ed0178,
+    type: 2}
+  BorderLeft2: {fileID: 1727765364196368, guid: 31012c55e7c301b439a10582cff38847,
+    type: 2}
+  BorderRight2: {fileID: 1515016522906124, guid: 6b960de34f49d1c418723e64ce958dc2,
+    type: 2}
+  CenterBlock: {fileID: 1042853933342196, guid: adfd95192306357428796eb85686a0cf,
+    type: 2}
+  CenterBlock2: {fileID: 1264612631343656, guid: f01c425bb7c7e7f49a23bf5af519e4a1,
+    type: 2}
+  XcoordsOfWater: 
+  YcoordsOfWater: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
