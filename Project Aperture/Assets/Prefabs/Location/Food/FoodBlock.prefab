@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 61502641244422760}
   - component: {fileID: 61228904665448292}
   - component: {fileID: 114377324714161746}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: FoodBlock
   m_TagString: Food
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4916596302943268}
   - component: {fileID: 212077248668000278}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Food_Block_Full
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 2.5, y: 2.5}
   m_EdgeRadius: 0
 --- !u!114 &114377324714161746
 MonoBehaviour:
@@ -133,6 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 568d95c2930187a43887c523269f7ba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _foodHave: 0
 --- !u!212 &212077248668000278
 SpriteRenderer:
   m_ObjectHideFlags: 1

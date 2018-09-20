@@ -22,11 +22,11 @@ public class FoodNeeds : MonoBehaviour
         
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D col)
     {
-        if (collision.gameObject.tag == "Food")
+        if (col.gameObject.tag == "Food")
         {
-            FoodHave AddFood = collision.gameObject.GetComponent<FoodHave>();
+            FoodHave AddFood = col.gameObject.GetComponent<FoodHave>();
             _foodAmount = _foodAmount + AddFood.SMBEatFood();
         }
     }

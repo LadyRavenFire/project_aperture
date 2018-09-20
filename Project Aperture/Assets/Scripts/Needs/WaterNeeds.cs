@@ -22,11 +22,12 @@ public class WaterNeeds : MonoBehaviour {
 
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D col)
     {
-        if (collision.gameObject.tag == "Water")
+        if (col.gameObject.tag == "Water")
         {
-            WaterHave AddWater = collision.gameObject.GetComponent<WaterHave>();
+            print("lol");
+            WaterHave AddWater = col.gameObject.GetComponent<WaterHave>();
             _waterAmount = _waterAmount + AddWater.SMBDrinkWater();
         }
     }

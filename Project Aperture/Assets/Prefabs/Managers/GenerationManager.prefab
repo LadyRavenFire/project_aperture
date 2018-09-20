@@ -1,0 +1,164 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1959583359933516}
+  m_IsPrefabParent: 1
+--- !u!1 &1959583359933516
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4334298996850804}
+  - component: {fileID: 114285200248712986}
+  - component: {fileID: 114254128722674094}
+  - component: {fileID: 114038596762875326}
+  - component: {fileID: 114213062545939684}
+  - component: {fileID: 114211406774461928}
+  m_Layer: 0
+  m_Name: GenerationManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4334298996850804
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1959583359933516}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114038596762875326
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1959583359933516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f28bb32a41b1dca4b95772fd0c6970c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  XCoordsOfFood: 
+  YCoordsOfFood: 
+  FoodBlock: {fileID: 1185767088851382, guid: b92fb4e832049cf46b2dc54b265f6ae2, type: 2}
+--- !u!114 &114211406774461928
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1959583359933516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d46d4a7bf604d0499f08b04d96da93e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  XCoordsOfWater: 
+  YCoordsOfWater: 
+  XCoordsOfFood: 
+  YCoordsOfFood: 
+  XCoordsOfPartsOfRadio: 
+  YCoordsOfPartsOfRadio: 
+--- !u!114 &114213062545939684
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1959583359933516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac74b5c3ddd16b4a888aa0e7f1bdf48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114254128722674094
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1959583359933516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dbe5f1dbdc6b65449c7ec6fe5326149, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WaterTrigger: {fileID: 1193812627985512, guid: 3368f8e08aeb777429ac50894854609c,
+    type: 2}
+  LeftUpCorner: {fileID: 1813844188477488, guid: f806cac7040fea547aac435793431b73,
+    type: 2}
+  RightUpCorner: {fileID: 1609424226137556, guid: e6afe322e30c0284ab8243c182fa0e8b,
+    type: 2}
+  LeftDownCorner: {fileID: 1915987511705904, guid: 85c9571cec30fcc43b459d82d78c86f1,
+    type: 2}
+  RightDownCorner: {fileID: 1182480731422540, guid: 84cf37e321e7f2c479b6d4cd90deceed,
+    type: 2}
+  LeftUpCorner2: {fileID: 1451041035535276, guid: 35ccfff607a01674abba8a4d1db9cd39,
+    type: 2}
+  RightUpCorner2: {fileID: 1962040282648210, guid: de399cdbfcc98054995643b020b48b26,
+    type: 2}
+  LeftDownCorner2: {fileID: 1694341347618102, guid: 1f635fcd20cebaf489e46647ef9bd765,
+    type: 2}
+  RightDownCorner2: {fileID: 1625982820866482, guid: f06ee08b73a90da4d94eb05394b3e38d,
+    type: 2}
+  BorderUp: {fileID: 1709833575907044, guid: eb7fca4f54450c14d8b87cf26f3d74bf, type: 2}
+  BorderDown: {fileID: 1125514302353658, guid: ff6b6b7beee884143a9bcda93825df51, type: 2}
+  BorderLeft: {fileID: 1761039901821578, guid: 4a67b805a43b14247a44c218069ec0e8, type: 2}
+  BorderRight: {fileID: 1541716493798854, guid: 360273bb8614cf14fa015b3d8596566f,
+    type: 2}
+  BorderUp2: {fileID: 1384245613820012, guid: 47ca0c28cdc7cfe499955bf0104bad93, type: 2}
+  BorderDown2: {fileID: 1992187217730770, guid: ccf485ba21e007c42824765ab6ed0178,
+    type: 2}
+  BorderLeft2: {fileID: 1727765364196368, guid: 31012c55e7c301b439a10582cff38847,
+    type: 2}
+  BorderRight2: {fileID: 1515016522906124, guid: 6b960de34f49d1c418723e64ce958dc2,
+    type: 2}
+  CenterBlock: {fileID: 1042853933342196, guid: adfd95192306357428796eb85686a0cf,
+    type: 2}
+  CenterBlock2: {fileID: 1264612631343656, guid: f01c425bb7c7e7f49a23bf5af519e4a1,
+    type: 2}
+  XCoordsOfWater: 
+  YCoordsOfWater: 
+--- !u!114 &114285200248712986
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1959583359933516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 841a4a15df088a74596f4984aab9713c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LeftUpCorner: {fileID: 1087887677904992, guid: 579968c9363005d4a9049e05f36728d0,
+    type: 2}
+  RightUpCorner: {fileID: 1857450281499632, guid: 7c2efca08c3cb754980f1277a13f9645,
+    type: 2}
+  LeftDownCorner: {fileID: 1879035811107790, guid: c324149ebc7e50d4dbeadf228f4e1093,
+    type: 2}
+  RightDownCorner: {fileID: 1323570240570020, guid: e3ffd750e721d6b489dc0ad66c6a6940,
+    type: 2}
+  BorderUp: {fileID: 1164401606653276, guid: 058b66b7b21e5f2448db0e9310387980, type: 2}
+  BorderDown: {fileID: 1396033939054048, guid: d2373ad7ec683da498f5d6de6a939e7b, type: 2}
+  BorderLeft: {fileID: 1986288491014524, guid: 6c50a7decf848a042bcef38b2bbcb430, type: 2}
+  BorderRight: {fileID: 1103720503903470, guid: 9d0a78f269c251748a97806563dc778e,
+    type: 2}
+  CenterBlock: {fileID: 1464871377298616, guid: 3bae42d5a824b5e4ebb6a78d9845f1dd,
+    type: 2}
+  Size: 2
+  LongOfGrassBlock: 0
+  HeightOfGrassBlock: 0
