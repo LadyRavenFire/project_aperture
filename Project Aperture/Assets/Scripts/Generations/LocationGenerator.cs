@@ -32,10 +32,7 @@ public class LocationGenerator : MonoBehaviour
 	    HeightOfGrassBlock = 10.8f;
 	    Rand = new System.Random();
 
-        LocationCreateEmpty();
-
-        //EnviromentCreate();
-	    
+        LocationCreateEmpty();	    
 	}
 
     void LocationCreateEmpty()
@@ -105,43 +102,5 @@ public class LocationGenerator : MonoBehaviour
 
             }
         }
-    }
-
-    /*void EnviromentCreate()
-    {
-        
-
-        if (Size == 2)
-        {
-            WaterCreation(1);
-        }
-        else
-        {
-            if (Size == 3)
-            {
-                WaterCreation(3);
-            }
-            else
-            {
-                if (Size == 4) 
-                {
-                    WaterCreation(4);
-                }
-            }
-        }
-        
-
-    }
-
-    void WaterCreation(int number)
-    {
-        for (int i = 0; i < number; i++)
-        {
-            
-            int randomx = rand.Next(0, Size);
-            int randomy = rand.Next(0, Size);
-
-            Instantiate(Water, new Vector3(randomx * LongOfGrassBlock, -(randomy * HeightOfGrassBlock), 0), Quaternion.identity);
-        }     
-    }*/
+    }  
 }

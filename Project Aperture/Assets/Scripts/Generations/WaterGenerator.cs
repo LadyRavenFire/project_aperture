@@ -5,6 +5,9 @@
 public class WaterGenerator : MonoBehaviour
 {
     private LocationGenerator _locationGenerator;
+    private PlaceGeneration _placeGeneration;
+
+    public GameObject WaterTrigger;
 
     public GameObject LeftUpCorner;
     public GameObject RightUpCorner;
@@ -31,124 +34,75 @@ public class WaterGenerator : MonoBehaviour
 
     private float _sizeOfWaterBlock;
 
-    public int[] XcoordsOfWater;
-    public int[] YcoordsOfWater;
+    public int[] XCoordsOfWater;
+    public int[] YCoordsOfWater;
 
     void Start()
     {
         _locationGenerator = GameObject.Find("GenerationManager").GetComponent<LocationGenerator>();
+        _placeGeneration = GameObject.Find("GenerationManager").GetComponent<PlaceGeneration>();
         _sizeOfWaterBlock = 1.3f;
 
-        XcoordsOfWater = new int[_locationGenerator.Size];
-        YcoordsOfWater = new int[_locationGenerator.Size];
+        XCoordsOfWater = new int[_placeGeneration.XCoordsOfWater.Length];
+        YCoordsOfWater = new int[_placeGeneration.YCoordsOfWater.Length];
 
-        CreateRandomPlace(_locationGenerator.Size);
+        for (int i = 0; i < _placeGeneration.XCoordsOfWater.Length; i++)
+        {
+            XCoordsOfWater[i] = _placeGeneration.XCoordsOfWater[i];
+            YCoordsOfWater[i] = _placeGeneration.YCoordsOfWater[i];
+        }
+      
         CreateRandomGeneration();
     }
 
-    void CreateRandomPlace(int sizeOLocation)
-    {
-        int randomX, randomY;
-
-        for (int i = 0; i < sizeOLocation; i++)
-        {
-            randomX = RandomCreateNumberForPlace();
-            randomY = RandomCreateNumberForPlace();
-
-            bool check = true;
-
-            while (check)
-            {
-                if (CheckForRepeat(randomX, randomY))
-                {
-                    randomX = RandomCreateNumberForPlace();
-                    randomY = RandomCreateNumberForPlace();
-                }
-                else
-                {
-                    check = false;
-                } 
-            }
-
-            if (check == false)
-            {
-                XcoordsOfWater[i] = randomX;
-                YcoordsOfWater[i] = randomY;
-            }
-
-        }
-            
-    }
-
-    int RandomCreateNumberForPlace()
-    {
-        int answer = _locationGenerator.Rand.Next(0, _locationGenerator.Size);
-        return answer;
-    }
-
-    bool CheckForRepeat(int Xcoord, int Ycoord)
-    {
-        for (int i = 0; i < _locationGenerator.Size; i++)
-        {
-            if (XcoordsOfWater[i] == Xcoord)
-            {
-                if (YcoordsOfWater[i] == Ycoord)
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-
     void CreateRandomGeneration()
     {
-        for (int i = 0; i < _locationGenerator.Size; i++)
+        for (int i = 0; i < XCoordsOfWater.Length; i++)
         {
+            Instantiate(WaterTrigger, new Vector3(XCoordsOfWater[i] * _locationGenerator.LongOfGrassBlock,
+                -(YCoordsOfWater[i] * _locationGenerator.HeightOfGrassBlock), 0), Quaternion.identity);
+
             Instantiate((_locationGenerator.Rand.Next(0, 100) % 2) == 0 ? CenterBlock : CenterBlock2,
-                new Vector3(XcoordsOfWater[i] * _locationGenerator.LongOfGrassBlock,
-                    -(YcoordsOfWater[i] * _locationGenerator.HeightOfGrassBlock), 0), Quaternion.identity);
+                new Vector3(XCoordsOfWater[i] * _locationGenerator.LongOfGrassBlock,
+                    -(YCoordsOfWater[i] * _locationGenerator.HeightOfGrassBlock), 0), Quaternion.identity);
 
             Instantiate((_locationGenerator.Rand.Next(0, 100) % 2) == 0 ? BorderUp : BorderUp2,
-                new Vector3(XcoordsOfWater[i] * _locationGenerator.LongOfGrassBlock,
-                    -(YcoordsOfWater[i] * _locationGenerator.HeightOfGrassBlock) + _sizeOfWaterBlock, 0),
+                new Vector3(XCoordsOfWater[i] * _locationGenerator.LongOfGrassBlock,
+                    -(YCoordsOfWater[i] * _locationGenerator.HeightOfGrassBlock) + _sizeOfWaterBlock, 0),
                 Quaternion.identity);
 
             Instantiate((_locationGenerator.Rand.Next(0, 100) % 2) == 0 ? BorderDown : BorderDown2,
-                new Vector3(XcoordsOfWater[i] * _locationGenerator.LongOfGrassBlock,
-                    -(YcoordsOfWater[i] * _locationGenerator.HeightOfGrassBlock) - _sizeOfWaterBlock, 0),
+                new Vector3(XCoordsOfWater[i] * _locationGenerator.LongOfGrassBlock,
+                    -(YCoordsOfWater[i] * _locationGenerator.HeightOfGrassBlock) - _sizeOfWaterBlock, 0),
                 Quaternion.identity);
 
             Instantiate((_locationGenerator.Rand.Next(0, 100) % 2) == 0 ? BorderLeft : BorderLeft2,
-                new Vector3((XcoordsOfWater[i] * _locationGenerator.LongOfGrassBlock) - _sizeOfWaterBlock,
-                    -(YcoordsOfWater[i] * _locationGenerator.HeightOfGrassBlock), 0), Quaternion.identity);
+                new Vector3((XCoordsOfWater[i] * _locationGenerator.LongOfGrassBlock) - _sizeOfWaterBlock,
+                    -(YCoordsOfWater[i] * _locationGenerator.HeightOfGrassBlock), 0), Quaternion.identity);
 
             Instantiate((_locationGenerator.Rand.Next(0, 100) % 2) == 0 ? BorderRight : BorderRight2,
-                new Vector3((XcoordsOfWater[i] * _locationGenerator.LongOfGrassBlock) + _sizeOfWaterBlock,
-                    -(YcoordsOfWater[i] * _locationGenerator.HeightOfGrassBlock), 0), Quaternion.identity);
+                new Vector3((XCoordsOfWater[i] * _locationGenerator.LongOfGrassBlock) + _sizeOfWaterBlock,
+                    -(YCoordsOfWater[i] * _locationGenerator.HeightOfGrassBlock), 0), Quaternion.identity);
 
             Instantiate((_locationGenerator.Rand.Next(0, 100) % 2) == 0 ? LeftUpCorner : LeftUpCorner2,
-                new Vector3((XcoordsOfWater[i] * _locationGenerator.LongOfGrassBlock) - _sizeOfWaterBlock,
-                    -(YcoordsOfWater[i] * _locationGenerator.HeightOfGrassBlock) + _sizeOfWaterBlock, 0),
+                new Vector3((XCoordsOfWater[i] * _locationGenerator.LongOfGrassBlock) - _sizeOfWaterBlock,
+                    -(YCoordsOfWater[i] * _locationGenerator.HeightOfGrassBlock) + _sizeOfWaterBlock, 0),
                 Quaternion.identity);
 
             Instantiate((_locationGenerator.Rand.Next(0, 100) % 2) == 0 ? RightUpCorner : RightUpCorner2,
-                new Vector3((XcoordsOfWater[i] * _locationGenerator.LongOfGrassBlock) + _sizeOfWaterBlock,
-                    -(YcoordsOfWater[i] * _locationGenerator.HeightOfGrassBlock) + _sizeOfWaterBlock, 0),
+                new Vector3((XCoordsOfWater[i] * _locationGenerator.LongOfGrassBlock) + _sizeOfWaterBlock,
+                    -(YCoordsOfWater[i] * _locationGenerator.HeightOfGrassBlock) + _sizeOfWaterBlock, 0),
                 Quaternion.identity);
 
             Instantiate((_locationGenerator.Rand.Next(0, 100) % 2) == 0 ? LeftDownCorner : LeftDownCorner2,
-                new Vector3((XcoordsOfWater[i] * _locationGenerator.LongOfGrassBlock) - _sizeOfWaterBlock,
-                    -(YcoordsOfWater[i] * _locationGenerator.HeightOfGrassBlock) - _sizeOfWaterBlock, 0),
+                new Vector3((XCoordsOfWater[i] * _locationGenerator.LongOfGrassBlock) - _sizeOfWaterBlock,
+                    -(YCoordsOfWater[i] * _locationGenerator.HeightOfGrassBlock) - _sizeOfWaterBlock, 0),
                 Quaternion.identity);
 
             Instantiate((_locationGenerator.Rand.Next(0, 100) % 2) == 0 ? RightDownCorner : RightDownCorner2,
-                new Vector3((XcoordsOfWater[i] * _locationGenerator.LongOfGrassBlock) + _sizeOfWaterBlock,
-                    -(YcoordsOfWater[i] * _locationGenerator.HeightOfGrassBlock) - _sizeOfWaterBlock, 0),
+                new Vector3((XCoordsOfWater[i] * _locationGenerator.LongOfGrassBlock) + _sizeOfWaterBlock,
+                    -(YCoordsOfWater[i] * _locationGenerator.HeightOfGrassBlock) - _sizeOfWaterBlock, 0),
                 Quaternion.identity);
         }
     }
-
-
 }
