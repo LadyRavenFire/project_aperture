@@ -18,8 +18,18 @@ public class FoodNeeds : MonoBehaviour
 
     void FoodSpending()
     {
-        _foodAmount = _foodAmount - 0.01f;
+        _foodAmount = _foodAmount - 0.02f;
         
+    }
+
+    public float ReturnFood()
+    {
+        return _foodAmount;
+    }
+
+    public float ReturnFoodNeeds()
+    {
+        return (100f - _foodAmount);
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -27,7 +37,26 @@ public class FoodNeeds : MonoBehaviour
         if (col.gameObject.tag == "Food")
         {
             FoodHave AddFood = col.gameObject.GetComponent<FoodHave>();
-            _foodAmount = _foodAmount + AddFood.SMBEatFood();
+            if (AddFood.ReturnFood() < (100f - _foodAmount))
+            {
+                _foodAmount = _foodAmount + AddFood.ReturnFood();
+                AddFood.FoodDelete(AddFood.ReturnFood());
+            }
+            else
+            {
+                AddFood.FoodDelete((100f - _foodAmount));
+                _foodAmount = 100f;
+            }
+            /*float eatFood = AddFood.SMBEatFood();
+            if ((_foodAmount + eatFood) > 100f)
+            {
+                _foodAmount = 100f;
+            }
+            else
+            {
+                _foodAmount = _foodAmount + eatFood;
+            }*/
         }
+        
     }
 }

@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4376593808173844}
   - component: {fileID: 61069662689332218}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BorderUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4795292009687358}
   - component: {fileID: 212406229063332818}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BorderEmptyUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}

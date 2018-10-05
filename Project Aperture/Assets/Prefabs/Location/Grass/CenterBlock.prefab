@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4841586539910574}
   - component: {fileID: 212048065296582014}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EmptyCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35,7 +35,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4807193494855526}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CenterBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
