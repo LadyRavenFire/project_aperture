@@ -30,7 +30,7 @@ GameObject:
   - component: {fileID: 114537858242801134}
   m_Layer: 8
   m_Name: mob
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

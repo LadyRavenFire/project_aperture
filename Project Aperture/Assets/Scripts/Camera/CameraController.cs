@@ -14,7 +14,7 @@ public class CameraController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-        _player = GameObject.FindWithTag("Player");
+        _player = GameObject.Find("Player");
 	    XCoordOfCamera = 0;
 	    YCoordOfcamera = 0;
 

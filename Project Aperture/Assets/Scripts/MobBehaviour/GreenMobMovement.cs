@@ -19,11 +19,11 @@ public class GreenMobMovement : MonoBehaviour
 
     private enum WayPoint
     {
-       Food,
-       Water,
-       Going,
-       Going2,
-       Patrol
+        Food,
+        Water,
+        Going,
+        Choose,
+        Walking
     }
 
     private WayPoint _way;
@@ -33,7 +33,7 @@ public class GreenMobMovement : MonoBehaviour
     {
         _locationGenerator = GameObject.Find("GenerationManager").GetComponent<LocationGenerator>();
         _seeker = GetComponent<Seeker>();
-        
+
 
         Waters = GameObject.FindGameObjectsWithTag("Water");
         //NumberOfWater = 0;
@@ -44,7 +44,7 @@ public class GreenMobMovement : MonoBehaviour
         _waterNeeds = GetComponent<WaterNeeds>();
         _foodNeeds = GetComponent<FoodNeeds>();
 
-        _way = WayPoint.Food;
+        _way = WayPoint.Choose;
     }
 
     void Update()
@@ -56,51 +56,37 @@ public class GreenMobMovement : MonoBehaviour
     {
         if (_way == WayPoint.Food)
         {
-            FoodHave need ; 
-            float kolvo = 0;
+            FoodHave need;
             int number = 0;
 
             float distance;
 
+            distance = (Math.Abs(Foods[number].transform.position.x - gameObject.transform.position.x -
+                                 _locationGenerator.LongOfGrassBlock / 2) +
+                        Math.Abs(Foods[number].transform.position.y - gameObject.transform.position.y +
+                                 _locationGenerator.LongOfGrassBlock / 2));
+
             for (int i = 0; i < Foods.Length; i++)
             {
                 need = Foods[i].GetComponent<FoodHave>();
-
-                distance = (Math.Abs(Foods[number].transform.position.x - gameObject.transform.position.x -
-                                     _locationGenerator.LongOfGrassBlock / 2) +
-                            Math.Abs(Foods[number].transform.position.y - gameObject.transform.position.y +
-                                     _locationGenerator.LongOfGrassBlock / 2));
-
                 if (need.ReturnFood() > _foodNeeds.ReturnFoodNeeds())
                 {
-                    if ((Math.Abs(Foods[i].transform.position.x - gameObject.transform.position.x - _locationGenerator.LongOfGrassBlock / 2) +
-                         Math.Abs(Foods[i].transform.position.y - gameObject.transform.position.y + _locationGenerator.HeightOfGrassBlock / 2)) < distance)
+                    if ((Math.Abs(Foods[i].transform.position.x - gameObject.transform.position.x -
+                                  _locationGenerator.LongOfGrassBlock / 2) +
+                         Math.Abs(Foods[i].transform.position.y - gameObject.transform.position.y +
+                                  _locationGenerator.HeightOfGrassBlock / 2)) < distance)
                     {
                         number = i;
-                        kolvo = need.ReturnFood();
+
+                        distance = (Math.Abs(Foods[number].transform.position.x - gameObject.transform.position.x -
+                                             _locationGenerator.LongOfGrassBlock / 2) +
+                                    Math.Abs(Foods[number].transform.position.y - gameObject.transform.position.y +
+                                             _locationGenerator.LongOfGrassBlock / 2));
                     }
                 }
-
-
-                /*if (
-                    kolvo < need.ReturnFood()
-                    && i != NumberOfFoods
-                    && ((Math.Abs(Foods[i].transform.position.x - gameObject.transform.position.x - _locationGenerator.LongOfGrassBlock/2) +
-                         Math.Abs(Foods[i].transform.position.y - gameObject.transform.position.y + _locationGenerator.HeightOfGrassBlock/2))
-                        < (Math.Abs(Foods[number].transform.position.x - gameObject.transform.position.x - _locationGenerator.LongOfGrassBlock/2) +
-                           Math.Abs(Foods[number].transform.position.y - gameObject.transform.position.y + _locationGenerator.LongOfGrassBlock/2)))
-                )
-                {
-                    number = i;
-                    kolvo = need.ReturnFood();
-                    //print(number);
-                    //print(kolvo);
-                }*/
-                                             
             }
-            
+
             _target = Foods[number].transform.position;
-            //NumberOfFoods = number;
             _seeker.StartPath(transform.position, _target + new Vector3(0f, 1.7f, 0), OnPathComplete);
             _way = WayPoint.Going;
         }
@@ -110,10 +96,10 @@ public class GreenMobMovement : MonoBehaviour
             if (gameObject.transform.position.x > _target.x - 0.5f &&
                 gameObject.transform.position.x <= _target.x + 0.5f &&
                 gameObject.transform.position.y > _target.y - 0.5f &&
-                gameObject.transform.position.y <= _target.y  + 2.7f) 
+                gameObject.transform.position.y <= _target.y + 2.7f)
             {
                 //print("Done!");
-                _way = WayPoint.Going2;
+                _way = WayPoint.Choose;
             }
         }
 
@@ -121,110 +107,59 @@ public class GreenMobMovement : MonoBehaviour
         {
             //print("water");
             WaterHave need;
-            float kolvo = 0;
             int number = 0;
 
             //WaterNeeds waterNeeds = GetComponent<WaterNeeds>();
 
             float distance;
 
+            distance = (Math.Abs(Waters[number].transform.position.x - gameObject.transform.position.x -
+                                 _locationGenerator.LongOfGrassBlock / 2) +
+                        Math.Abs(Waters[number].transform.position.y - gameObject.transform.position.y +
+                                 _locationGenerator.LongOfGrassBlock / 2));
+
             for (int i = 0; i < Waters.Length; i++)
             {
                 need = Waters[i].GetComponent<WaterHave>();
-
-                distance = (Math.Abs(Waters[number].transform.position.x - gameObject.transform.position.x -
-                                     _locationGenerator.LongOfGrassBlock / 2) +
-                            Math.Abs(Waters[number].transform.position.y - gameObject.transform.position.y +
-                                     _locationGenerator.LongOfGrassBlock / 2));
-
                 if (need.ReturnWater() > _waterNeeds.ReturnWaterNeed())
                 {
-                    if ((Math.Abs(Foods[i].transform.position.x - gameObject.transform.position.x - _locationGenerator.LongOfGrassBlock / 2) +
-                         Math.Abs(Foods[i].transform.position.y - gameObject.transform.position.y + _locationGenerator.HeightOfGrassBlock / 2)) < distance)
+                    if ((Math.Abs(Foods[i].transform.position.x - gameObject.transform.position.x -
+                                  _locationGenerator.LongOfGrassBlock / 2) +
+                         Math.Abs(Foods[i].transform.position.y - gameObject.transform.position.y +
+                                  _locationGenerator.HeightOfGrassBlock / 2)) < distance)
                     {
                         number = i;
-                        kolvo = need.ReturnWater();
+                        distance = (Math.Abs(Waters[number].transform.position.x - gameObject.transform.position.x -
+                                             _locationGenerator.LongOfGrassBlock / 2) +
+                                    Math.Abs(Waters[number].transform.position.y - gameObject.transform.position.y +
+                                             _locationGenerator.LongOfGrassBlock / 2));
                     }
                 }
-
             }
 
             _target = Waters[number].transform.position;
             _seeker.StartPath(transform.position, _target + new Vector3(0f, 2.4f, 0), OnPathComplete);
 
             _way = WayPoint.Going;
-
-
-            /*bool flag = false;
-            for (int i = 0; i < Waters.Length; i++)
-            {
-                need = Waters[i].GetComponent<WaterHave>(); //TODO сделать сохранение количества пищи и пути и сравнивать их в приоритете расстояния
-                //print(need.ReturnWater());
-                if ( ((Math.Abs(Waters[i].transform.position.x - gameObject.transform.position.x) +
-                         Math.Abs(Waters[i].transform.position.y - gameObject.transform.position.y))
-                        < (Math.Abs(Waters[number].transform.position.x - gameObject.transform.position.x) +
-                           Math.Abs(Waters[number].transform.position.y - gameObject.transform.position.y)))
-                )
-                    {
-                        if (kolvo < (need.ReturnWater())
-                            && i != NumberOfWater
-                            && waterNeeds.ReturnWaterNeed() < need.ReturnWater()
-                        )
-                            {
-                                //print(i);
-                                number = i;
-                                kolvo = need.ReturnWater();
-                                flag = true;
-                            }
-                        
-
-                        //print(kolvo);
-                    }
-
-                if (i == 0)
-                {
-                    //print(waterNeeds.ReturnWaterNeed());
-                    if (need.ReturnWater() > waterNeeds.ReturnWaterNeed())
-                    {
-                        flag = true;
-                    } 
-                }
-                
-            }
-
-            if (flag)
-            {
-                //print(number);
-                _target = Waters[number].transform.position;
-                NumberOfWater = number;
-                _seeker.StartPath(transform.position, _target + new Vector3(0f, 2.4f, 0), OnPathComplete);
-
-                _way = WayPoint.Going;
-            }
-            else
-            {
-                print("Stuck!");
-                _target = Waters[_locationGenerator.Rand.Next(0, Waters.Length)].transform.position;
-                _seeker.StartPath(transform.position, _target + new Vector3(0f, 2.4f, 0), OnPathComplete);
-                _way = WayPoint.Going;
-            }*/
-
         }
 
-        if (_way == WayPoint.Patrol)
+        if (_way == WayPoint.Walking)
         {
             var seeker = GetComponent<Seeker>();
 
-            _goingTarget = new Vector3(_locationGenerator.Size * _locationGenerator.Rand.Next(0, (int)_locationGenerator.LongOfGrassBlock * 9 / 10),
-                                   - _locationGenerator.Size * _locationGenerator.Rand.Next(0, (int)_locationGenerator.HeightOfGrassBlock/2), 0f);
+            _goingTarget = new Vector3(
+                _locationGenerator.Size *
+                _locationGenerator.Rand.Next(0, (int) _locationGenerator.LongOfGrassBlock * 9 / 10),
+                -_locationGenerator.Size *
+                _locationGenerator.Rand.Next(0, (int) _locationGenerator.HeightOfGrassBlock / 2), 0f);
             _target = _goingTarget;
-           // _target = GameObject.Find("Player").transform.position;
-              
+            // _target = GameObject.Find("Player").transform.position;
+
             seeker.StartPath(transform.position, _target, OnPathComplete);
             _way = WayPoint.Going;
         }
 
-        if (_way == WayPoint.Going2)
+        if (_way == WayPoint.Choose)
         {
             WaterNeeds water = GetComponent<WaterNeeds>();
             FoodNeeds food = GetComponent<FoodNeeds>();
@@ -237,7 +172,8 @@ public class GreenMobMovement : MonoBehaviour
                 }
                 else
                 {
-                    _way = WayPoint.Patrol;;
+                    _way = WayPoint.Walking;
+                    ;
                 }
             }
             else
@@ -248,10 +184,10 @@ public class GreenMobMovement : MonoBehaviour
                 }
                 else
                 {
-                    _way = WayPoint.Patrol;
+                    _way = WayPoint.Walking;
                 }
-            }     
-        }        
+            }
+        }
     }
 
     public void OnPathComplete(Path p)
