@@ -27,6 +27,11 @@ public class FoodNeeds : MonoBehaviour
         return _foodAmount;
     }
 
+    public void AddFood(float add)
+    {
+        _foodAmount += add;
+    }
+
     public float ReturnFoodNeeds()
     {
         return (100f - _foodAmount);

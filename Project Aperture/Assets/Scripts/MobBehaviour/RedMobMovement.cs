@@ -3,17 +3,19 @@ using System.Linq;
 using Pathfinding;
 using UnityEngine;
 
-public class GreenMobMovement : MonoBehaviour
-{
+
+public class RedMobMovement : MonoBehaviour {
+
     private LocationGenerator _locationGenerator;
     private Vector3 _target;
     private Seeker _seeker;
 
-    public GameObject GreenMobPrefab;
+    public GameObject RedMobPrefab;
 
     private Vector3 _goingTarget;
 
     private GameObject[] GreenMobs;
+    private GameObject[] RedMobs;
     private GameObject[] Waters;
     private GameObject[] Foods;
 
@@ -29,7 +31,8 @@ public class GreenMobMovement : MonoBehaviour
         Going,
         Choose,
         Walking,
-        Breeding
+        Breeding,
+        Devouring
     }
 
     private WayPoint _way;
@@ -44,14 +47,17 @@ public class GreenMobMovement : MonoBehaviour
 
         Waters = GameObject.FindGameObjectsWithTag("Water");
         Foods = GameObject.FindGameObjectsWithTag("Food");
-        GreenMobs = GameObject.FindGameObjectsWithTag("GreenMob");
-        
-        for (int i = 0; i < GreenMobs.Length; i++)
+
+        GreenMobs = GameObject.FindGameObjectsWithTag("GreenMob");        
+
+        RedMobs = GameObject.FindGameObjectsWithTag("RedMob");
+
+        for (int i = 0; i < RedMobs.Length; i++)
         {
-            if (GreenMobs[i].name == gameObject.name)
+            if (RedMobs[i].name == gameObject.name)
             {
-                GreenMobs[i] = null;
-                GreenMobs = GreenMobs.Where(x => x != null).ToArray();
+                RedMobs[i] = null;
+                RedMobs = RedMobs.Where(x => x != null).ToArray();
             }
         }
 
@@ -65,16 +71,18 @@ public class GreenMobMovement : MonoBehaviour
     {
         GreenMobs = GameObject.FindGameObjectsWithTag("GreenMob");
 
-        for (int i = 0; i < GreenMobs.Length; i++)
+        RedMobs = GameObject.FindGameObjectsWithTag("RedMob");
+
+        for (int i = 0; i < RedMobs.Length; i++)
         {
-            if (GreenMobs[i].name == gameObject.name)
+            if (RedMobs[i].name == gameObject.name)
             {
-                GreenMobs[i] = null;
-                GreenMobs = GreenMobs.Where(x => x != null).ToArray();
+                RedMobs[i] = null;
+                RedMobs = RedMobs.Where(x => x != null).ToArray();
             }
         }
 
-        if (GreenMobs.Length >= _locationGenerator.Size * 1.5)
+        if (RedMobs.Length >= _locationGenerator.Size)
         {
             _timeToBreeding = 20f;
         }
@@ -92,24 +100,32 @@ public class GreenMobMovement : MonoBehaviour
     }
 
     void Way()
-    {        
+    {
 
         if (_way == WayPoint.Going)
         {
             if (_timeToBreeding <= 0f)
             {
-                for (int i = 0; i < GreenMobs.Length; i++)
+                for (int i = 0; i < RedMobs.Length; i++)
                 {
-                    if (Math.Abs(GreenMobs[i].transform.position.x - gameObject.transform.position.x) < 4f && Math.Abs(GreenMobs[i].transform.position.y - gameObject.transform.position.y) <4f)
+                    if (Math.Abs(RedMobs[i].transform.position.x - gameObject.transform.position.x) < 4f && Math.Abs(RedMobs[i].transform.position.y - gameObject.transform.position.y) < 4f)
                     {
-                        if (_foodNeeds.ReturnFood() > 50)
+                        if (_foodNeeds.ReturnFood() > 85)
                         {
-                            if (_waterNeeds.ReturnWater() > 50)
+                            if (_waterNeeds.ReturnWater() > 85)
                             {
                                 _way = WayPoint.Breeding;
                             }
                         }
                     }
+                }
+            }
+
+            for (int i = 0; i < GreenMobs.Length; i++)
+            {
+                if (Math.Abs(GreenMobs[i].transform.position.x - gameObject.transform.position.x) < 4f && Math.Abs(GreenMobs[i].transform.position.y - gameObject.transform.position.y) < 4f)
+                {
+                    _way = WayPoint.Devouring;
                 }
             }
 
@@ -127,9 +143,30 @@ public class GreenMobMovement : MonoBehaviour
         if (_way == WayPoint.Breeding)
         {
             _timeToBreeding = 15f;
-            Instantiate(GreenMobPrefab,
+            Instantiate(RedMobPrefab,
                 new Vector3(gameObject.transform.position.x + 0.3f, gameObject.transform.position.y + 0.3f,
                     gameObject.transform.position.z), Quaternion.identity);
+            _way = WayPoint.Going;
+        }
+
+        if (_way == WayPoint.Devouring)
+        {
+            if (_waterNeeds.ReturnWater() < 60f || _foodNeeds.ReturnFood() < 60f)
+            {
+                for (int i = 0; i < GreenMobs.Length; i++)
+                {
+                    if (Math.Abs(GreenMobs[i].transform.position.x - gameObject.transform.position.x) < 4f &&
+                        Math.Abs(GreenMobs[i].transform.position.y - gameObject.transform.position.y) < 4f)
+                    {
+                        print("OM NOM NOM!!!");
+                        Destroy(GreenMobs[i]);
+                    }
+                }
+
+                _waterNeeds.AddWater(100f);
+                _foodNeeds.AddFood(100f);
+                
+            }               
             _way = WayPoint.Going;
         }
 
@@ -216,9 +253,9 @@ public class GreenMobMovement : MonoBehaviour
 
             _goingTarget = new Vector3(
                 _locationGenerator.Size *
-                _locationGenerator.Rand.Next(0, (int) _locationGenerator.LongOfGrassBlock * 9 / 10),
+                _locationGenerator.Rand.Next(0, (int)_locationGenerator.LongOfGrassBlock * 9 / 10),
                 -_locationGenerator.Size *
-                _locationGenerator.Rand.Next(0, (int) _locationGenerator.HeightOfGrassBlock / 2), 0f);
+                _locationGenerator.Rand.Next(0, (int)_locationGenerator.HeightOfGrassBlock / 2), 0f);
             _target = _goingTarget;
             // _target = GameObject.Find("Player").transform.position;
 

@@ -21,6 +21,11 @@ public class WaterNeeds : MonoBehaviour {
         return (100f - _waterAmount);
     }
 
+    public void AddWater(float add)
+    {
+        _waterAmount += add;
+    }
+
     void WaterSpending()
     {
         _waterAmount = _waterAmount - 0.02f;
