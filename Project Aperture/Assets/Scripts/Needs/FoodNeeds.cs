@@ -7,7 +7,7 @@ public class FoodNeeds : MonoBehaviour
     public float FoodMax = 100f;
     public float FoodSpendInSecond = 0.02f;
 
-    public string FoodTag = "Water";
+    public string FoodTag = "Food";
 
     void Start()
     {
@@ -41,10 +41,10 @@ public class FoodNeeds : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == FoodTag)
+        if (col.gameObject.tag == "Food")
         {
             FoodHave addFood = col.gameObject.GetComponent<FoodHave>();
-            if (addFood.ReturnFood() < FoodMax - _foodAmount)
+            if (addFood.ReturnFood() < (FoodMax - _foodAmount))
             {
                 _foodAmount = _foodAmount + addFood.ReturnFood();
                 addFood.FoodDelete(addFood.ReturnFood());
