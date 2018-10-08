@@ -1,35 +1,41 @@
 ﻿using UnityEngine;
 
-public class WaterHave : MonoBehaviour
-{
+public class WaterHave : MonoBehaviour {
+
     [SerializeField] private float _waterHave;
-
-    public float WaterTick = 0.03f;
-
-    public int StartWaterMax = 20;
-    public int StartWaterMin = 0;
 
     private LocationGenerator _locationGenerator;
 
+    // Use this for initialization
     void Start()
     {
         _locationGenerator = GameObject.Find("GenerationManager").GetComponent<LocationGenerator>();
-        _waterHave = _locationGenerator.Rand.Next(StartWaterMin, StartWaterMax);
+        _waterHave = _locationGenerator.Rand.Next(0, 20);
     }
 
-    void FixedUpdate()
+    // Update is called once per frame
+    void Update()
     {
         WaterGeneration();
     }
 
-    void WaterGeneration()
+    public float SMBDrinkWater()
     {
-        _waterHave += WaterTick;
+        float giveFood = _waterHave;
+        _waterHave = 0f;
+         //print(giveFood);
+        return giveFood;
     }
 
-    public void WaterDelete(float delete)
+    void WaterGeneration()
     {
-        _waterHave = _waterHave - delete;
+        _waterHave = _waterHave + 0.03f;
+
+    }
+
+    public void WaterDelete(float _delete)
+    {
+        _waterHave = _waterHave - _delete;
     }
 
     public float ReturnWater()
