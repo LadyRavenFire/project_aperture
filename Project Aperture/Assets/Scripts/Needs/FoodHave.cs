@@ -1,45 +1,39 @@
 ﻿using UnityEngine;
 
-public class FoodHave : MonoBehaviour {
-
+public class FoodHave : MonoBehaviour
+{
     [SerializeField] private float _foodHave;
+
+    public float FoodTick = 0.03f;
+
+    public int StartFoodMax = 20;
+    public int StartFoodMin = 0;
 
     private LocationGenerator _locationGenerator;
 
-    // Use this for initialization
     void Start()
     {
         _locationGenerator = GameObject.Find("GenerationManager").GetComponent<LocationGenerator>();
-        _foodHave = _locationGenerator.Rand.Next(0, 20);
+        _foodHave = _locationGenerator.Rand.Next(StartFoodMin, StartFoodMax);
     }
 
-    // Update is called once per frame
-    void Update () {
-		FoodSGeneration();
-	}
-
-    public float SMBEatFood()
+    void FixedUpdate()
     {
-        float giveFood = _foodHave;
-        _foodHave = 0f;
-        return giveFood;
+        FoodSGeneration();
     }
 
     void FoodSGeneration()
     {
-        _foodHave = _foodHave + 0.03f;
-
+        _foodHave = _foodHave + FoodTick;
     }
 
-    public void FoodDelete(float _delete)
+    public void FoodDelete(float delete)
     {
-        _foodHave = _foodHave - _delete;
+        _foodHave = _foodHave - delete;
     }
 
     public float ReturnFood()
     {
         return _foodHave;
     }
-
-
 }

@@ -52,15 +52,6 @@ public class FoodNeeds : MonoBehaviour
                 AddFood.FoodDelete((100f - _foodAmount));
                 _foodAmount = 100f;
             }
-            /*float eatFood = AddFood.SMBEatFood();
-            if ((_foodAmount + eatFood) > 100f)
-            {
-                _foodAmount = 100f;
-            }
-            else
-            {
-                _foodAmount = _foodAmount + eatFood;
-            }*/
         }
         
     }

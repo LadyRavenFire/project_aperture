@@ -1,16 +1,19 @@
 ﻿using UnityEngine;
 
-public class WaterNeeds : MonoBehaviour {
-
+public class WaterNeeds : MonoBehaviour
+{
     [SerializeField] private float _waterAmount;
 
-    // Use this for initialization
+    public float WaterMax = 100f;
+    public float WaterSendInSecond = 0.02f;
+
+    public string WaterTag = "Water";
+
     void Start()
     {
-        _waterAmount = 100f;
+        _waterAmount = WaterMax;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         WaterSpending();
@@ -18,7 +21,7 @@ public class WaterNeeds : MonoBehaviour {
 
     public float ReturnWaterNeed()
     {
-        return (100f - _waterAmount);
+        return (WaterMax - _waterAmount);
     }
 
     public void AddWater(float add)
@@ -28,8 +31,7 @@ public class WaterNeeds : MonoBehaviour {
 
     void WaterSpending()
     {
-        _waterAmount = _waterAmount - 0.02f;
-
+        _waterAmount = _waterAmount - WaterSendInSecond;
     }
 
     public float ReturnWater()
@@ -39,32 +41,19 @@ public class WaterNeeds : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Water")
+        if (col.gameObject.tag == WaterTag)
         {
-            WaterHave AddWater = col.gameObject.GetComponent<WaterHave>();
-            if (AddWater.ReturnWater() < (100f -_waterAmount))
+            WaterHave addWater = col.gameObject.GetComponent<WaterHave>();
+            if (addWater.ReturnWater() < (WaterMax - _waterAmount))
             {
-                _waterAmount = _waterAmount + AddWater.ReturnWater();
-                AddWater.WaterDelete(AddWater.ReturnWater());
+                _waterAmount = _waterAmount + addWater.ReturnWater();
+                addWater.WaterDelete(addWater.ReturnWater());
             }
             else
             {
-                AddWater.WaterDelete((100f - _waterAmount));
-                _waterAmount = 100f;
+                addWater.WaterDelete((WaterMax - _waterAmount));
+                _waterAmount = WaterMax;
             }
-
-            
-            /*float DrinkWater = AddWater.SMBDrinkWater();
-            if ((_waterAmount + DrinkWater > 100f))
-            {
-                _waterAmount = 100f;
-            }
-            else
-            {
-               
-                _waterAmount = _waterAmount + DrinkWater;
-            }*/
         }
-               
     }
 }
