@@ -3,7 +3,6 @@ using Random = System.Random;
 
 public class LocationGenerator : MonoBehaviour
 {
-
     public GameObject LeftUpCorner;
     public GameObject RightUpCorner;
     public GameObject LeftDownCorner;
@@ -12,34 +11,30 @@ public class LocationGenerator : MonoBehaviour
     public GameObject BorderUp;
     public GameObject BorderDown;
     public GameObject BorderLeft;
-    public GameObject BorderRight;    
+    public GameObject BorderRight;
 
     public GameObject CenterBlock;
 
-    //public GameObject Water;
-
     public int Size;
 
-    public float LongOfGrassBlock;
-    public float HeightOfGrassBlock;
+    public float LongOfGrassBlock = 19.2f;
+    public float HeightOfGrassBlock = 10.8f;
 
-    public Random Rand;
+    public Random
+        Rand; //TODO задуматься о выносе рандома за пределы этого класса, т.к. при подключении этого класса наверное подлючаем кучу объектов?
 
-    // Use this for initialization
-    void Start ()
-	{
-	    LongOfGrassBlock = 19.2f;
-	    HeightOfGrassBlock = 10.8f;
-	    Rand = new System.Random();
+    void Start()
+    {
+        Rand = new System.Random();
 
-        LocationCreateEmpty();	    
-	}
+        LocationCreateEmpty();
+    }
 
     void LocationCreateEmpty()
     {
-        for (int i = 0; i < Size; i++)
+        for (var i = 0; i < Size; i++)
         {
-            for (int j = 0; j < Size; j++)
+            for (var j = 0; j < Size; j++)
             {
                 if (i == 0 && j == 0)
                 {
@@ -56,41 +51,52 @@ public class LocationGenerator : MonoBehaviour
                     {
                         if (i == Size - 1 && j == 0)
                         {
-                            Instantiate(LeftDownCorner, new Vector3(0, -(i * HeightOfGrassBlock), 0), Quaternion.identity);
+                            Instantiate(LeftDownCorner, new Vector3(0, -(i * HeightOfGrassBlock), 0),
+                                Quaternion.identity);
                         }
                         else
                         {
                             if (i == Size - 1 && j == Size - 1)
                             {
-                                Instantiate(RightDownCorner, new Vector3(j * LongOfGrassBlock, -(i * HeightOfGrassBlock), 0), Quaternion.identity);
+                                Instantiate(RightDownCorner,
+                                    new Vector3(j * LongOfGrassBlock, -(i * HeightOfGrassBlock), 0),
+                                    Quaternion.identity);
                             }
                             else
                             {
                                 if (j == 0 && i != 0 && i != Size - 1)
                                 {
-                                    Instantiate(BorderLeft, new Vector3(0, -(i * HeightOfGrassBlock), 0), Quaternion.identity);
+                                    Instantiate(BorderLeft, new Vector3(0, -(i * HeightOfGrassBlock), 0),
+                                        Quaternion.identity);
                                 }
                                 else
                                 {
                                     if (j != 0 && j != Size - 1 && i == 0)
                                     {
-                                        Instantiate(BorderUp, new Vector3(j * LongOfGrassBlock, 0, 0), Quaternion.identity);
+                                        Instantiate(BorderUp, new Vector3(j * LongOfGrassBlock, 0, 0),
+                                            Quaternion.identity);
                                     }
                                     else
                                     {
                                         if (j == Size - 1 && i != 0 && i != Size - 1)
                                         {
-                                            Instantiate(BorderRight, new Vector3(j * LongOfGrassBlock, -(i * HeightOfGrassBlock), 0), Quaternion.identity);
+                                            Instantiate(BorderRight,
+                                                new Vector3(j * LongOfGrassBlock, -(i * HeightOfGrassBlock), 0),
+                                                Quaternion.identity);
                                         }
                                         else
                                         {
                                             if (i == Size - 1 && j != 0 && j != Size - 1)
                                             {
-                                                Instantiate(BorderDown, new Vector3(j * LongOfGrassBlock, -(i * HeightOfGrassBlock), 0), Quaternion.identity);
+                                                Instantiate(BorderDown,
+                                                    new Vector3(j * LongOfGrassBlock, -(i * HeightOfGrassBlock), 0),
+                                                    Quaternion.identity);
                                             }
                                             else
                                             {
-                                                Instantiate(CenterBlock, new Vector3(j * LongOfGrassBlock, -(i * HeightOfGrassBlock), 0), Quaternion.identity);
+                                                Instantiate(CenterBlock,
+                                                    new Vector3(j * LongOfGrassBlock, -(i * HeightOfGrassBlock), 0),
+                                                    Quaternion.identity);
                                             }
                                         }
                                     }
@@ -99,8 +105,7 @@ public class LocationGenerator : MonoBehaviour
                         }
                     }
                 }
-
             }
         }
-    }  
+    }
 }

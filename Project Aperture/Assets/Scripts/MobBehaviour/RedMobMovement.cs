@@ -70,7 +70,6 @@ public class RedMobMovement : MonoBehaviour {
     void Update()
     {
         GreenMobs = GameObject.FindGameObjectsWithTag("GreenMob");
-
         RedMobs = GameObject.FindGameObjectsWithTag("RedMob");
 
         for (int i = 0; i < RedMobs.Length; i++)
