@@ -9,12 +9,12 @@ public class CameraController : MonoBehaviour
     private float _mnozitelXCoord, _mnozitelYCoord;
 
     private float _xSizeOfScreen, _ySizeOfScreen;
-    
+    public string NameOfPlayer = "Player";
 
 	// Use this for initialization
 	void Start ()
 	{
-        _player = GameObject.Find("Player");
+        _player = GameObject.Find(NameOfPlayer);
 	    XCoordOfCamera = 0;
 	    YCoordOfcamera = 0;
 

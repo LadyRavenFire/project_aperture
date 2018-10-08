@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4203021683828378}
   - component: {fileID: 212851187940055456}
   - component: {fileID: 61690362660169270}
+  - component: {fileID: 58146828281584006}
   - component: {fileID: 61254498179911854}
   - component: {fileID: 114113623987279742}
   - component: {fileID: 114347539923552692}
@@ -68,6 +69,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!58 &58146828281584006
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1750083066105426}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!61 &61254498179911854
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -99,7 +115,7 @@ BoxCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1750083066105426}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -130,6 +146,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _foodAmount: 0
+  FoodMax: 100
+  FoodSendInSecond: 0.02
+  FoodTag: Food
 --- !u!114 &114173643902555994
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -168,6 +187,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _waterAmount: 0
+  WaterMax: 100
+  WaterSendInSecond: 0.02
+  WaterTag: Water
 --- !u!114 &114537858242801134
 MonoBehaviour:
   m_ObjectHideFlags: 1

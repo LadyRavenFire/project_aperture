@@ -24,6 +24,9 @@ public class RedMobMovement : MonoBehaviour {
 
     private float _timeToBreeding;
 
+    private Vector3 _changePlace;
+    private float _timetoStuck;
+
     private enum WayPoint
     {
         Food,
@@ -64,6 +67,9 @@ public class RedMobMovement : MonoBehaviour {
         _waterNeeds = GetComponent<WaterNeeds>();
         _foodNeeds = GetComponent<FoodNeeds>();
 
+        _timetoStuck = 0f;
+        _changePlace = new Vector3(0f, 0f, 0f);
+
         _way = WayPoint.Choose;
     }
 
@@ -72,6 +78,22 @@ public class RedMobMovement : MonoBehaviour {
         GreenMobs = GameObject.FindGameObjectsWithTag("GreenMob");
 
         RedMobs = GameObject.FindGameObjectsWithTag("RedMob");
+
+        if (_changePlace == gameObject.transform.position)
+        {
+            _timetoStuck += Time.deltaTime;
+        }
+        else
+        {
+            _changePlace = gameObject.transform.position;
+            _timetoStuck = 0f;
+        }
+
+        if (_timetoStuck >= 2f)
+        {
+            print("Stuck! " + gameObject.name);
+            _way = WayPoint.Walking;
+        }
 
         for (int i = 0; i < RedMobs.Length; i++)
         {
@@ -242,7 +264,7 @@ public class RedMobMovement : MonoBehaviour {
             }
 
             _target = Waters[number].transform.position;
-            _seeker.StartPath(transform.position, _target + new Vector3(0f, 2.4f, 0), OnPathComplete);
+            _seeker.StartPath(transform.position, _target + new Vector3(0f, 2.5f, 0), OnPathComplete);
 
             _way = WayPoint.Going;
         }

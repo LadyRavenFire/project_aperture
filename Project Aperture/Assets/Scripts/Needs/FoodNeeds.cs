@@ -2,24 +2,28 @@
 
 public class FoodNeeds : MonoBehaviour
 {
+    [SerializeField] private float _foodAmount;
 
-    [SerializeField]private float _foodAmount;
+    public float FoodMax = 100f;
+    public float FoodSendInSecond = 0.02f;
 
-	// Use this for initialization
-	void Start ()
-	{
-	    _foodAmount = 100;
-	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
-		FoodSpending();
-	}
+    public string FoodTag = "Food";
+
+    // Use this for initialization
+    void Start()
+    {
+        _foodAmount = FoodMax;
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        FoodSpending();
+    }
 
     void FoodSpending()
     {
-        _foodAmount = _foodAmount - 0.02f;
-        
+        _foodAmount = _foodAmount - FoodSendInSecond;
     }
 
     public float ReturnFood()
@@ -34,25 +38,24 @@ public class FoodNeeds : MonoBehaviour
 
     public float ReturnFoodNeeds()
     {
-        return (100f - _foodAmount);
+        return (FoodMax - _foodAmount);
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Food")
+        if (col.gameObject.tag == FoodTag)
         {
             FoodHave AddFood = col.gameObject.GetComponent<FoodHave>();
-            if (AddFood.ReturnFood() < (100f - _foodAmount))
+            if (AddFood.ReturnFood() < (FoodMax - _foodAmount))
             {
                 _foodAmount = _foodAmount + AddFood.ReturnFood();
                 AddFood.FoodDelete(AddFood.ReturnFood());
             }
             else
             {
-                AddFood.FoodDelete((100f - _foodAmount));
-                _foodAmount = 100f;
+                AddFood.FoodDelete((FoodMax - _foodAmount));
+                _foodAmount = FoodMax;
             }
         }
-        
     }
 }

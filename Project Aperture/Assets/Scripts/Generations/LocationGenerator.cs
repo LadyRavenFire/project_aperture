@@ -99,7 +99,6 @@ public class LocationGenerator : MonoBehaviour
                         }
                     }
                 }
-
             }
         }
     }  

@@ -10,10 +10,11 @@ public class WaterHave : MonoBehaviour
     public int StartWaterMin = 0;
 
     private LocationGenerator _locationGenerator;
+    public string NameOfGenerationManager = "GenerationManager";
 
     void Start()
     {
-        _locationGenerator = GameObject.Find("GenerationManager").GetComponent<LocationGenerator>();
+        _locationGenerator = GameObject.Find(NameOfGenerationManager).GetComponent<LocationGenerator>();
         _waterHave = _locationGenerator.Rand.Next(StartWaterMin, StartWaterMax);
     }
 

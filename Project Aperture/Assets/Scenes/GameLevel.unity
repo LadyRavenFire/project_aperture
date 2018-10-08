@@ -198,6 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   XCoordOfCamera: 0
   YCoordOfcamera: 0
+  NameOfPlayer: Player
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -556,6 +557,11 @@ Prefab:
         type: 2}
       propertyPath: maxFrameTime
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114605143737443140, guid: 35522cdb52db7a54aa18e2bb61360e18,
+        type: 2}
+      propertyPath: NodeSize
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 35522cdb52db7a54aa18e2bb61360e18, type: 2}

@@ -10,10 +10,11 @@ public class FoodHave : MonoBehaviour
     public int StartFoodMin = 0;
 
     private LocationGenerator _locationGenerator;
+    public string NameOfGenerationManager = "GenerationManager";
 
     void Start()
     {
-        _locationGenerator = GameObject.Find("GenerationManager").GetComponent<LocationGenerator>();
+        _locationGenerator = GameObject.Find(NameOfGenerationManager).GetComponent<LocationGenerator>();
         _foodHave = _locationGenerator.Rand.Next(StartFoodMin, StartFoodMax);
     }
 

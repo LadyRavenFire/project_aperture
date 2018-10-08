@@ -22,6 +22,9 @@ public class GreenMobMovement : MonoBehaviour
 
     private float _timeToBreeding;
 
+    private Vector3 _changePlace;
+    private float _timetoStuck;
+
     private enum WayPoint
     {
         Food,
@@ -58,12 +61,31 @@ public class GreenMobMovement : MonoBehaviour
         _waterNeeds = GetComponent<WaterNeeds>();
         _foodNeeds = GetComponent<FoodNeeds>();
 
+        _timetoStuck = 0f;
+        _changePlace = new Vector3(0f,0f,0f);
+
         _way = WayPoint.Choose;
     }
 
     void Update()
     {
         GreenMobs = GameObject.FindGameObjectsWithTag("GreenMob");
+
+        if (_changePlace == gameObject.transform.position)
+        {
+            _timetoStuck += Time.deltaTime;
+        }
+        else
+        {
+            _changePlace = gameObject.transform.position;
+            _timetoStuck = 0f;
+        }
+
+        if (_timetoStuck >= 2f)
+        {
+            print("Stuck! " + gameObject.name);
+            _way = WayPoint.Walking;
+        }
 
         for (int i = 0; i < GreenMobs.Length; i++)
         {
@@ -205,15 +227,13 @@ public class GreenMobMovement : MonoBehaviour
             }
 
             _target = Waters[number].transform.position;
-            _seeker.StartPath(transform.position, _target + new Vector3(0f, 2.4f, 0), OnPathComplete);
+            _seeker.StartPath(transform.position, _target + new Vector3(0f, 2.5f, 0), OnPathComplete);
 
             _way = WayPoint.Going;
         }
 
         if (_way == WayPoint.Walking)
         {
-            var seeker = GetComponent<Seeker>();
-
             _goingTarget = new Vector3(
                 _locationGenerator.Size *
                 _locationGenerator.Rand.Next(0, (int) _locationGenerator.LongOfGrassBlock * 9 / 10),
@@ -222,7 +242,7 @@ public class GreenMobMovement : MonoBehaviour
             _target = _goingTarget;
             // _target = GameObject.Find("Player").transform.position;
 
-            seeker.StartPath(transform.position, _target, OnPathComplete);
+            _seeker.StartPath(transform.position, _target, OnPathComplete);
             _way = WayPoint.Going;
         }
 
