@@ -21,12 +21,6 @@ public class PlaceGeneration : MonoBehaviour
         CreateRandomPlaces(XCoordsOfFood, YCoordsOfFood);
         CreateRandomPlaces(XCoordsOfPartsOfRadio, YCoordsOfPartsOfRadio);
 
-//        for (int i = 0; i < 1000; i++)
-//        {
-//            int x = RandomCreateNumberForPlace();
-//            int y = RandomCreateNumberForPlace();
-//            print("["+x + ", " + y + "]");
-//        }
     }
 
     void CreateNumberOfCoords() //rename and change code and balance like (coords* .... <= 2/3) or like that

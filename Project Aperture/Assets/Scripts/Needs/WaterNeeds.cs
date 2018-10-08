@@ -5,7 +5,7 @@ public class WaterNeeds : MonoBehaviour
     [SerializeField] private float _waterAmount;
 
     public float WaterMax = 100f;
-    public float WaterSendInSecond = 0.02f;
+    public float WaterSpendInSecond = 0.02f;
 
     public string WaterTag = "Water";
 
@@ -31,7 +31,7 @@ public class WaterNeeds : MonoBehaviour
 
     void WaterSpending()
     {
-        _waterAmount = _waterAmount - WaterSendInSecond;
+        _waterAmount = _waterAmount - WaterSpendInSecond;
     }
 
     public float ReturnWater()
