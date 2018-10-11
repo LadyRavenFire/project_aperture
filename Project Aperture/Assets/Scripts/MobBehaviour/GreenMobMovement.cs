@@ -83,7 +83,7 @@ public class GreenMobMovement : MonoBehaviour
 
         if (_timetoStuck >= 2f)
         {
-            print("Stuck! " + gameObject.name);
+            //print("Stuck! " + gameObject.name);
             _way = WayPoint.Walking;
         }
 

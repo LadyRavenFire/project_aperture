@@ -11,8 +11,10 @@ namespace Pathfinding {
 
 			EditorGUI.BeginProperty(position, label, property);
 			EditorGUI.BeginChangeCheck();
-			Enum enumNew = EditorGUI.EnumMaskField(position, label, targetEnum);
-			if (EditorGUI.EndChangeCheck() || !property.hasMultipleDifferentValues) {
+#pragma warning disable CS0618 // Type or member is obsolete
+            Enum enumNew = EditorGUI.EnumMaskField(position, label, targetEnum);
+#pragma warning restore CS0618 // Type or member is obsolete
+            if (EditorGUI.EndChangeCheck() || !property.hasMultipleDifferentValues) {
 				property.intValue = (int)Convert.ChangeType(enumNew, targetEnum.GetType());
 			}
 			EditorGUI.EndProperty();

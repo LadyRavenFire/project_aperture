@@ -91,7 +91,7 @@ public class RedMobMovement : MonoBehaviour {
 
         if (_timetoStuck >= 2f)
         {
-            print("Stuck! " + gameObject.name);
+            //print("Stuck! " + gameObject.name);
             _way = WayPoint.Walking;
         }
 
@@ -180,7 +180,7 @@ public class RedMobMovement : MonoBehaviour {
                     if (Math.Abs(GreenMobs[i].transform.position.x - gameObject.transform.position.x) < 4f &&
                         Math.Abs(GreenMobs[i].transform.position.y - gameObject.transform.position.y) < 4f)
                     {
-                        print("OM NOM NOM!!!");
+                        //print("OM NOM NOM!!!");
                         Destroy(GreenMobs[i]);
                     }
                 }
