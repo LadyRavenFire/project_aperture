@@ -30,21 +30,82 @@ public class FoodHave : MonoBehaviour
 
     void ChangeFoodTick()
     {
-        switch (_timeManager.NameOfTime)
+        if (_timeManager.NowSeason == TimeManager.Season.Spring)
         {
-            case TimeManager.TimeName.Morning:
-                FoodTick = 0.04f;
-                break;
-            case TimeManager.TimeName.Day:
-                FoodTick = 0.05f;
-                break;
-            case TimeManager.TimeName.Evening:
-                FoodTick = 0.02f;
-                break;
-            case TimeManager.TimeName.Night:
-                FoodTick = 0.01f;
-                break;           
+            switch (_timeManager.NameOfTime)
+            {
+                case TimeManager.TimeName.Morning:
+                    FoodTick = 0.02f;
+                    break;
+                case TimeManager.TimeName.Day:
+                    FoodTick = 0.025f;
+                    break;
+                case TimeManager.TimeName.Evening:
+                    FoodTick = 0.01f;
+                    break;
+                case TimeManager.TimeName.Night:
+                    FoodTick = 0.005f;
+                    break;
+            }
         }
+
+        if (_timeManager.NowSeason == TimeManager.Season.Summer)
+        {
+            switch (_timeManager.NameOfTime)
+            {
+                case TimeManager.TimeName.Morning:
+                    FoodTick = 0.04f;
+                    break;
+                case TimeManager.TimeName.Day:
+                    FoodTick = 0.05f;
+                    break;
+                case TimeManager.TimeName.Evening:
+                    FoodTick = 0.02f;
+                    break;
+                case TimeManager.TimeName.Night:
+                    FoodTick = 0.01f;
+                    break;
+            }
+        }
+
+        if (_timeManager.NowSeason == TimeManager.Season.Autumn)
+        {
+            switch (_timeManager.NameOfTime)
+            {
+                case TimeManager.TimeName.Morning:
+                    FoodTick = 0.02f;
+                    break;
+                case TimeManager.TimeName.Day:
+                    FoodTick = 0.025f;
+                    break;
+                case TimeManager.TimeName.Evening:
+                    FoodTick = 0.01f;
+                    break;
+                case TimeManager.TimeName.Night:
+                    FoodTick = 0.005f;
+                    break;
+            }
+        }
+
+        if (_timeManager.NowSeason == TimeManager.Season.Winter)
+        {
+            switch (_timeManager.NameOfTime)
+            {
+                case TimeManager.TimeName.Morning:
+                    FoodTick = 0f;
+                    break;
+                case TimeManager.TimeName.Day:
+                    FoodTick = 0f;
+                    break;
+                case TimeManager.TimeName.Evening:
+                    FoodTick = 0f;
+                    break;
+                case TimeManager.TimeName.Night:
+                    FoodTick = 0f;
+                    break;
+            }
+        }
+
     }
     void FoodSGeneration()
     {
