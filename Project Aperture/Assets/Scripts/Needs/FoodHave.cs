@@ -10,19 +10,42 @@ public class FoodHave : MonoBehaviour
     public int StartFoodMin = 0;
 
     private LocationGenerator _locationGenerator;
+    private TimeManager _timeManager;
+
     public string NameOfGenerationManager = "GenerationManager";
+    public string NameOfTimeManager = "LocationManager";
 
     void Start()
     {
         _locationGenerator = GameObject.Find(NameOfGenerationManager).GetComponent<LocationGenerator>();
+        _timeManager = GameObject.Find(NameOfTimeManager).GetComponent<TimeManager>();
         _foodHave = _locationGenerator.Rand.Next(StartFoodMin, StartFoodMax);
     }
 
     void FixedUpdate()
     {
+        ChangeFoodTick();
         FoodSGeneration();
     }
 
+    void ChangeFoodTick()
+    {
+        switch (_timeManager.NameOfTime)
+        {
+            case TimeManager.TimeName.Morning:
+                FoodTick = 0.04f;
+                break;
+            case TimeManager.TimeName.Day:
+                FoodTick = 0.05f;
+                break;
+            case TimeManager.TimeName.Evening:
+                FoodTick = 0.02f;
+                break;
+            case TimeManager.TimeName.Night:
+                FoodTick = 0.01f;
+                break;           
+        }
+    }
     void FoodSGeneration()
     {
         _foodHave = _foodHave + FoodTick;
