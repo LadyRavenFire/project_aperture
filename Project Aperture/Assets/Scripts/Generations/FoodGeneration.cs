@@ -22,6 +22,7 @@ public class FoodGeneration : MonoBehaviour
         for (int i = 0; i < _placeGeneration.XCoordsOfFood.Length; i++)
         {
             Instantiate(FoodBlock,
+<<<<<<< HEAD
                 new Vector3(_placeGeneration.XCoordsOfFood[i] * _locationGenerator.LongOfGrassBlock,
                     -(_placeGeneration.YCoordsOfFood[i] * _locationGenerator.HeightOfGrassBlock), 0),
                 Quaternion.identity);
@@ -34,6 +35,17 @@ public class FoodGeneration : MonoBehaviour
                         -(_placeGeneration.YCoordsOfFood[i] * _locationGenerator.HeightOfGrassBlock) + SizeOfFoodBlock,
                         0), Quaternion.identity);
             }
+=======
+                new Vector3(XCoordsOfFood[i] * _locationGenerator.LongOfGrassBlock,
+                    -(YCoordsOfFood[i] * _locationGenerator.HeightOfGrassBlock), 0), Quaternion.identity);
+
+            if (_locationGenerator.Rand.Next(0,100) %2 == 0)
+            {
+                Instantiate(FoodBlock,
+                    new Vector3(XCoordsOfFood[i] * _locationGenerator.LongOfGrassBlock - _sizeOfFoodBlock,
+                        -(YCoordsOfFood[i] * _locationGenerator.HeightOfGrassBlock) + _sizeOfFoodBlock, 0), Quaternion.identity);
+            }          
+>>>>>>> code-refactorings
 
             if (_locationGenerator.Rand.Next(0, 100) % 2 == 0)
             {

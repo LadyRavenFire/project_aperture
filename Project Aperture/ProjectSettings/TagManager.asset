@@ -8,6 +8,7 @@ TagManager:
   - Water
   - GreenMob
   - RedMob
+  - RadioPart
   layers:
   - Default
   - TransparentFX

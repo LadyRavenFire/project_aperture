@@ -6,6 +6,7 @@ public class CreatePathes : MonoBehaviour
 
     private AstarPath _path;
     private LocationGenerator _locationGenerator;
+    public float NodeSize = 0.5f;
 
     void Start()
     {
@@ -25,14 +26,14 @@ public class CreatePathes : MonoBehaviour
 //        gg.nodeSize = 0.5f;
 
         float _long = _locationGenerator.LongOfGrassBlock * 10;
-        float _height = _locationGenerator.HeightOfGrassBlock * 10;
-
+        float _height = _locationGenerator.HeightOfGrassBlock * 10 ;
+        float constitution = 1 / NodeSize;
         
         
         gg.SetDimensions( 
-            _locationGenerator.Size * (int)_long /10 * 2 , //TODO реализовать через nodeSize
-            _locationGenerator.Size * (int)_height /10 * 2 ,
-            0.5f);
+            _locationGenerator.Size * (int)_long /10 * (int)constitution , //TODO реализовать через nodeSize
+            _locationGenerator.Size * (int)_height /10 * (int)constitution,
+            NodeSize);
 
         _path.Scan();
     }
