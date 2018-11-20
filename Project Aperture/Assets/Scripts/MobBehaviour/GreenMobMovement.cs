@@ -368,9 +368,9 @@ public class GreenMobMovement : MonoBehaviour
 
     void SummerBehaviour()
     {
-        if (_greenMobs.Length >= _locationGenerator.Size * 1.5)
+        if (_greenMobs.Length >= _locationGenerator.Size * 5)
         {
-            _timeToBreeding = 20f;
+            _timeToBreeding = 5f;
         }
 
         if (_timeToBreeding > 0f)
@@ -427,7 +427,7 @@ public class GreenMobMovement : MonoBehaviour
 
                     if (isRedMobNear)
                     {
-                        _way = WayPoint.Water;
+                        _way = WayPoint.Walking;
                     }
                 }
             }
@@ -446,7 +446,7 @@ public class GreenMobMovement : MonoBehaviour
 
         if (_way == WayPoint.Breeding)
         {
-            _timeToBreeding = 15f;
+            _timeToBreeding = 7f;
             Instantiate(GreenMobPrefab,
                 new Vector3(gameObject.transform.position.x + 0.3f, gameObject.transform.position.y + 0.3f,
                     gameObject.transform.position.z), Quaternion.identity);

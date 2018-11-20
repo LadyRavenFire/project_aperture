@@ -282,10 +282,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f27b35ee115ca8843870b1b71ed88f41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LocationTime: 55
-  DayOfYear: 3
-  NameOfTime: 2
-  NowSeason: 2
+  LocationTime: 0
+  DayOfYear: 0
+  NameOfTime: 0
+  NowSeason: 0
 --- !u!4 &429151034
 Transform:
   m_ObjectHideFlags: 0
