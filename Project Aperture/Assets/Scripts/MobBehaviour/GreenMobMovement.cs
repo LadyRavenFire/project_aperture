@@ -76,6 +76,13 @@ public class GreenMobMovement : MonoBehaviour
     {
         ChangeFoodSpending();
 
+        DoNotStuckMob();
+
+        Way();
+    }
+
+    void FindMobs()
+    {
         _greenMobs = GameObject.FindGameObjectsWithTag("GreenMob");
 
         for (int i = 0; i < _greenMobs.Length; i++) //обновлять т.к. мобы деплоятся!
@@ -86,10 +93,6 @@ public class GreenMobMovement : MonoBehaviour
                 _greenMobs = _greenMobs.Where(x => x != null).ToArray();
             }
         }
-
-        DoNotStuckMob();
-
-        Way();
     }
 
     void ChangeFoodSpending()
@@ -109,6 +112,7 @@ public class GreenMobMovement : MonoBehaviour
                     break;
                 case TimeManager.TimeName.Night:
                     _foodNeeds.FoodSendInSecond = 0.015f;
+                    _waterNeeds.WaterSendInSecond = 0.002f;
                     break;
             }
         }
@@ -118,7 +122,7 @@ public class GreenMobMovement : MonoBehaviour
             switch (_timeManager.NameOfTime)
             {
                 case TimeManager.TimeName.Morning:
-                    _foodNeeds.FoodSendInSecond = 0.03f;
+                    _foodNeeds.FoodSendInSecond = 0.03f;                    
                     break;
                 case TimeManager.TimeName.Day:
                     _foodNeeds.FoodSendInSecond = 0.026f;
@@ -128,11 +132,12 @@ public class GreenMobMovement : MonoBehaviour
                     break;
                 case TimeManager.TimeName.Night:
                     _foodNeeds.FoodSendInSecond = 0.01f;
+                    _waterNeeds.WaterSendInSecond = 0.002f;
                     break;
             }
         }
 
-        if (_timeManager.NowSeason == TimeManager.Season.Autumn) //need to eat? change tactic for mobs
+        if (_timeManager.NowSeason == TimeManager.Season.Autumn) 
         {
             switch (_timeManager.NameOfTime)
             {
@@ -147,45 +152,36 @@ public class GreenMobMovement : MonoBehaviour
                     break;
                 case TimeManager.TimeName.Night:
                     _foodNeeds.FoodSendInSecond = 0.005f;
+                    _waterNeeds.WaterSendInSecond = 0.002f;
                     break;
             }
         }
 
-        if (_timeManager.NowSeason == TimeManager.Season.Winter) //sleep time and no razmnozenia
+        if (_timeManager.NowSeason == TimeManager.Season.Winter) 
         {
-            switch (_timeManager.NameOfTime)
-            {
-                case TimeManager.TimeName.Morning:
-                    _foodNeeds.FoodSendInSecond = 0.003f;
-                    break;
-                case TimeManager.TimeName.Day:
-                    _foodNeeds.FoodSendInSecond = 0.0026f;
-                    break;
-                case TimeManager.TimeName.Evening:
-                    _foodNeeds.FoodSendInSecond = 0.0016f;
-                    break;
-                case TimeManager.TimeName.Night:
-                    _foodNeeds.FoodSendInSecond = 0.001f;
-                    break;
-            }
+            _foodNeeds.FoodSendInSecond = 0.003f;
+            _waterNeeds.WaterSendInSecond = 0.003f;
         }
 
-    }
+    } //TODO WaterSpending
 
     void Way()
     {
         if (_timeManager.NowSeason == TimeManager.Season.Spring)
         {
+            FindMobs();
             SpringBehaviour();
         }
 
         if (_timeManager.NowSeason == TimeManager.Season.Summer)
         {
+            FindMobs();
             SummerBehaviour();
         }
 
         if (_timeManager.NowSeason == TimeManager.Season.Autumn)
         {
+            FindMobs();
             AutumnBehaviour();
         }
 
@@ -198,20 +194,24 @@ public class GreenMobMovement : MonoBehaviour
 
     void DoNotStuckMob()
     {
-        if (_changePlace == gameObject.transform.position)
+        if ((_timeManager.NowSeason != TimeManager.Season.Winter &&
+            _timeManager.NameOfTime != TimeManager.TimeName.Night) || (_timeManager.NowSeason == TimeManager.Season.Autumn && _timeManager.NameOfTime == TimeManager.TimeName.Night))
         {
-            _timeToStuck += Time.deltaTime;
-        }
-        else
-        {
-            _changePlace = gameObject.transform.position;
-            _timeToStuck = 0f;
-        }
+            if (_changePlace == gameObject.transform.position)
+            {
+                _timeToStuck += Time.deltaTime;
+            }
+            else
+            {
+                _changePlace = gameObject.transform.position;
+                _timeToStuck = 0f;
+            }
 
-        if (_timeToStuck >= 2f)
-        {
-            _way = WayPoint.Walking;
-        }
+            if (_timeToStuck >= 2f)
+            {
+                _way = WayPoint.Walking;
+            }
+        }   
     }
 
     void SpringBehaviour()
@@ -259,15 +259,21 @@ public class GreenMobMovement : MonoBehaviour
 
         if (_way == WayPoint.Choose)
         {
-
-            if (_waterNeeds.ReturnWater() < _foodNeeds.ReturnFood())
+            if (_timeManager.NameOfTime == TimeManager.TimeName.Night)
             {
-                _way = _waterNeeds.ReturnWater() < 85 ? WayPoint.Water : WayPoint.Walking;
+                _seeker.CancelCurrentPathRequest();
             }
             else
             {
-                _way = _foodNeeds.ReturnFood() < 85 ? WayPoint.Food : WayPoint.Walking;
-            }
+                if (_waterNeeds.ReturnWater() < _foodNeeds.ReturnFood())
+                {
+                    _way = _waterNeeds.ReturnWater() < 85 ? WayPoint.Water : WayPoint.Walking;
+                }
+                else
+                {
+                    _way = _foodNeeds.ReturnFood() < 85 ? WayPoint.Food : WayPoint.Walking;
+                }
+            }      
         }
 
         if (_way == WayPoint.Breeding)
@@ -405,15 +411,37 @@ public class GreenMobMovement : MonoBehaviour
 
         if (_way == WayPoint.Choose)
         {
-
-            if (_waterNeeds.ReturnWater() < _foodNeeds.ReturnFood())
+            if (_timeManager.NameOfTime == TimeManager.TimeName.Night)
             {
-                _way = _waterNeeds.ReturnWater() < 85 ? WayPoint.Water : WayPoint.Walking;
+                bool isRedMobNear = false;
+                GameObject[] _redMobs = GameObject.FindGameObjectsWithTag("RedMob"); ;
+                foreach (var t in _redMobs)
+                {
+                    if (gameObject.transform.position.x > t.transform.position.x - 0.5f &&
+                        gameObject.transform.position.x <= t.transform.position.x + 0.5f &&
+                        gameObject.transform.position.y > t.transform.position.y - 0.5f &&
+                        gameObject.transform.position.y <= t.transform.position.y + 2.7f)
+                    {
+                        isRedMobNear = true;
+                    }
+
+                    if (isRedMobNear)
+                    {
+                        _way = WayPoint.Water;
+                    }
+                }
             }
             else
             {
-                _way = _foodNeeds.ReturnFood() < 85 ? WayPoint.Food : WayPoint.Walking;
-            }
+                if (_waterNeeds.ReturnWater() < _foodNeeds.ReturnFood())
+                {
+                    _way = _waterNeeds.ReturnWater() < 85 ? WayPoint.Water : WayPoint.Walking;
+                }
+                else
+                {
+                    _way = _foodNeeds.ReturnFood() < 85 ? WayPoint.Food : WayPoint.Walking;
+                }
+            }       
         }
 
         if (_way == WayPoint.Breeding)
@@ -551,15 +579,22 @@ public class GreenMobMovement : MonoBehaviour
 
         if (_way == WayPoint.Choose)
         {
-
-            if (_waterNeeds.ReturnWater() < _foodNeeds.ReturnFood())
+            if (_timeManager.NameOfTime == TimeManager.TimeName.Night)
             {
-                _way = _waterNeeds.ReturnWater() < 85 ? WayPoint.Water : WayPoint.Walking;
+                _seeker.CancelCurrentPathRequest();
+                _timeToBreeding = 20f;
             }
             else
             {
-                _way = _foodNeeds.ReturnFood() < 85 ? WayPoint.Food : WayPoint.Walking;
-            }
+                if (_waterNeeds.ReturnWater() < _foodNeeds.ReturnFood())
+                {
+                    _way = _waterNeeds.ReturnWater() < 85 ? WayPoint.Water : WayPoint.Walking;
+                }
+                else
+                {
+                    _way = _foodNeeds.ReturnFood() < 85 ? WayPoint.Food : WayPoint.Walking;
+                }
+            }       
         }
 
         if (_way == WayPoint.Breeding)
@@ -656,33 +691,58 @@ public class GreenMobMovement : MonoBehaviour
     {
         if (_way == WayPoint.Choose)
         {
-            //TODO скрипт на сбор всех на спячку-хуячку
+            if (gameObject.transform.position.x > _target.x - 0.5f &&
+                gameObject.transform.position.x <= _target.x + 0.5f &&
+                gameObject.transform.position.y > _target.y - 0.5f &&
+                gameObject.transform.position.y <= _target.y + 2.7f)
+            {
+                _seeker.CancelCurrentPathRequest();
+            }           
         }
 
         if (_way == WayPoint.Going)
         {
-            _way = WayPoint.Choose;
+            WinterPath();
         }
 
         if (_way == WayPoint.Breeding)
         {
-            _way = WayPoint.Choose;
+            WinterPath();
         }
 
         if (_way == WayPoint.Food)
         {
-            _way = WayPoint.Choose;
+            WinterPath();
         }
 
         if (_way == WayPoint.Water)
         {
-            _way = WayPoint.Choose;
+            WinterPath();
         }
 
         if (_way == WayPoint.Walking)
         {
-            _way = WayPoint.Choose;
+            WinterPath();
         }
+    }
+
+    void WinterPath()
+    {
+        _greenMobs = GameObject.FindGameObjectsWithTag("GreenMob");
+        int numberOfGreens = 0;
+        for (int i = 0; i < _greenMobs.Length; i++) //обновлять т.к. мобы деплоятся!
+        {
+            if (_greenMobs[i].name == gameObject.name)
+            {
+                numberOfGreens = i;
+            }
+        }
+
+        _target = new Vector3(0 + numberOfGreens, 0, 0);
+
+        _seeker.StartPath(transform.position, _target, OnPathComplete);
+
+        _way = WayPoint.Choose;
     }
 
     public void OnPathComplete(Path p)

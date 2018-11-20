@@ -27,8 +27,8 @@ public class TimeManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-	    LocationTime = 0f;
-	    DayOfYear = 0;
+	    //LocationTime = 0f;
+	    //DayOfYear = 0; //???
 	}
 	
 	// Update is called once per frame
