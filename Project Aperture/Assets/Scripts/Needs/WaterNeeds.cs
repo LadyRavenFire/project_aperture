@@ -26,7 +26,14 @@ public class WaterNeeds : MonoBehaviour
 
     public void AddWater(float add)
     {
-        _waterAmount += add;
+        if (_waterAmount + add > 100f)
+        {
+            _waterAmount = 100f;
+        }
+        else
+        {
+            _waterAmount += add;
+        }
     }
 
     void WaterSpending()

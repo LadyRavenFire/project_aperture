@@ -33,7 +33,14 @@ public class FoodNeeds : MonoBehaviour
 
     public void AddFood(float add)
     {
-        _foodAmount += add;
+        if (_foodAmount + add > 100f)
+        {
+            _foodAmount = 100f;
+        }
+        else
+        {
+            _foodAmount += add;
+        }
     }
 
     public float ReturnFoodNeeds()

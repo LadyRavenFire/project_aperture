@@ -10,6 +10,12 @@ public class PlaceGeneration : MonoBehaviour
     public int[] XCoordsOfFood;
     public int[] YCoordsOfFood;
 
+    public int[] XCoordsOfGreenMobs;
+    public int[] YCoordsOfGreenMobs;
+
+    public int[] XCoordsOfRedMobs;
+    public int[] YCoordsOfRedMobs;
+
     public int[] XCoordsOfPartsOfRadio;
     public int[] YCoordsOfPartsOfRadio;
 
@@ -20,6 +26,8 @@ public class PlaceGeneration : MonoBehaviour
         CreateRandomPlaces(XCoordsOfWater, YCoordsOfWater);
         CreateRandomPlaces(XCoordsOfFood, YCoordsOfFood);
         CreateRandomPlaces(XCoordsOfPartsOfRadio, YCoordsOfPartsOfRadio);
+        CreateRandomPlaces(XCoordsOfGreenMobs, YCoordsOfGreenMobs);
+        CreateRandomPlaces(XCoordsOfRedMobs, YCoordsOfRedMobs);
     }
 
     void CreateNumberOfCoords() //rename and change code and balance like (coords* .... <= 2/3) or like that
@@ -34,6 +42,12 @@ public class PlaceGeneration : MonoBehaviour
 
             XCoordsOfPartsOfRadio = new int[_locationGenerator.Size -1];
             YCoordsOfPartsOfRadio = new int[_locationGenerator.Size -1];
+
+            XCoordsOfGreenMobs = new int[4];
+            YCoordsOfGreenMobs = new int[4];
+
+            XCoordsOfRedMobs = new int[3];
+            YCoordsOfRedMobs = new int[3];
         }
 
         if (_locationGenerator.Size >= 5 && _locationGenerator.Size < 10)
@@ -46,6 +60,12 @@ public class PlaceGeneration : MonoBehaviour
 
             XCoordsOfPartsOfRadio = new int[_locationGenerator.Size];
             YCoordsOfPartsOfRadio = new int[_locationGenerator.Size];
+
+            XCoordsOfGreenMobs = new int[_locationGenerator.Size];
+            YCoordsOfGreenMobs = new int[_locationGenerator.Size];
+
+            XCoordsOfRedMobs = new int[_locationGenerator.Size-4];
+            YCoordsOfRedMobs = new int[_locationGenerator.Size-4];
         }
 
         if (_locationGenerator.Size >= 10 && _locationGenerator.Size < 15)
@@ -58,6 +78,12 @@ public class PlaceGeneration : MonoBehaviour
 
             XCoordsOfPartsOfRadio = new int[_locationGenerator.Size * 2];
             YCoordsOfPartsOfRadio = new int[_locationGenerator.Size * 2];
+
+            XCoordsOfGreenMobs = new int[_locationGenerator.Size * 2];
+            YCoordsOfGreenMobs = new int[_locationGenerator.Size * 2];
+
+            XCoordsOfRedMobs = new int[_locationGenerator.Size];
+            YCoordsOfRedMobs = new int[_locationGenerator.Size];
         }
 
         if (_locationGenerator.Size >= 15)
@@ -68,9 +94,14 @@ public class PlaceGeneration : MonoBehaviour
             XCoordsOfFood = new int[_locationGenerator.Size * 3];
             YCoordsOfFood = new int[_locationGenerator.Size * 3];
 
-            XCoordsOfPartsOfRadio = new int[_locationGenerator.Size * 3
-];
+            XCoordsOfPartsOfRadio = new int[_locationGenerator.Size * 3];
             YCoordsOfPartsOfRadio = new int[_locationGenerator.Size * 3];
+
+            XCoordsOfGreenMobs = new int[_locationGenerator.Size * 3];
+            YCoordsOfGreenMobs = new int[_locationGenerator.Size * 3];
+
+            XCoordsOfRedMobs = new int[_locationGenerator.Size * 2];
+            YCoordsOfRedMobs = new int[_locationGenerator.Size * 2];
         }
 
     }

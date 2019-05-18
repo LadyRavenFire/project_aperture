@@ -199,8 +199,9 @@ public class RedMobMovement : MonoBehaviour {
 
         if (_way == WayPoint.Devouring)
         {
-            if (_timeManager.NowSeason == TimeManager.Season.Summer || _waterNeeds.ReturnWater() < 90f || _foodNeeds.ReturnFood() < 90f)
+            if (_timeManager.NowSeason == TimeManager.Season.Summer & _waterNeeds.ReturnWater() < 75f & _foodNeeds.ReturnFood() < 75f)
             {
+                
                 for (int i = 0; i < _greenMobs.Length; i++)
                 {
                     if (Math.Abs(_greenMobs[i].transform.position.x - gameObject.transform.position.x) < 4f &&
@@ -239,29 +240,69 @@ public class RedMobMovement : MonoBehaviour {
             if (_timeManager.NowSeason == TimeManager.Season.Summer)
             {
                 int number = 0;
-                float distance = (Math.Abs(_greenMobs[number].transform.position.x -gameObject.transform.position.x -
-                                        _locationGenerator.LongOfGrassBlock / 2) +
-                    Math.Abs(_greenMobs[number].transform.position.y - gameObject.transform.position.y +
-                             _locationGenerator.LongOfGrassBlock / 2)); 
-
-                for (int i = 0; i < _greenMobs.Length; i++)
+                if (_greenMobs.Length > 0)
                 {
-                    if ((Math.Abs(_greenMobs[i].transform.position.x - gameObject.transform.position.x -
-                                  _locationGenerator.LongOfGrassBlock / 2) +
-                         Math.Abs(_greenMobs[i].transform.position.y - gameObject.transform.position.y +
-                                  _locationGenerator.HeightOfGrassBlock / 2)) < distance)
-                    {
-                        number = i;
+                    float distance = (Math.Abs(_greenMobs[number].transform.position.x -
+                                               gameObject.transform.position.x -
+                                               _locationGenerator.LongOfGrassBlock / 2) +
+                                      Math.Abs(_greenMobs[number].transform.position.y -
+                                               gameObject.transform.position.y +
+                                               _locationGenerator.LongOfGrassBlock / 2));
 
-                        distance = (Math.Abs(_greenMobs[number].transform.position.x - gameObject.transform.position.x -
-                                             _locationGenerator.LongOfGrassBlock / 2) +
-                                    Math.Abs(_greenMobs[number].transform.position.y - gameObject.transform.position.y +
-                                             _locationGenerator.LongOfGrassBlock / 2));
+
+                    for (int i = 0; i < _greenMobs.Length; i++)
+                    {
+                        if ((Math.Abs(_greenMobs[i].transform.position.x - gameObject.transform.position.x -
+                                      _locationGenerator.LongOfGrassBlock / 2) +
+                             Math.Abs(_greenMobs[i].transform.position.y - gameObject.transform.position.y +
+                                      _locationGenerator.HeightOfGrassBlock / 2)) < distance)
+                        {
+                            number = i;
+
+                            distance = (Math.Abs(_greenMobs[number].transform.position.x -
+                                                 gameObject.transform.position.x -
+                                                 _locationGenerator.LongOfGrassBlock / 2) +
+                                        Math.Abs(_greenMobs[number].transform.position.y -
+                                                 gameObject.transform.position.y +
+                                                 _locationGenerator.LongOfGrassBlock / 2));
+                        }
                     }
+
+                    _target = _greenMobs[number].transform.position;
+                    _seeker.StartPath(transform.position, _target + new Vector3(0f, 1.7f, 0), OnPathComplete);
+                    _way = WayPoint.Going;
                 }
-                _target = _greenMobs[number].transform.position;
-                _seeker.StartPath(transform.position, _target + new Vector3(0f, 1.7f, 0), OnPathComplete);
-                _way = WayPoint.Going;
+                else
+                {
+                    var distance = (Math.Abs(_foods[number].transform.position.x - gameObject.transform.position.x -
+                                             _locationGenerator.LongOfGrassBlock / 2) +
+                                    Math.Abs(_foods[number].transform.position.y - gameObject.transform.position.y +
+                                             _locationGenerator.LongOfGrassBlock / 2));
+
+                    for (int i = 0; i < _foods.Length; i++)
+                    {
+                        var need = _foods[i].GetComponent<FoodHave>();
+                        if (need.ReturnFood() > _foodNeeds.ReturnFoodNeeds())
+                        {
+                            if ((Math.Abs(_foods[i].transform.position.x - gameObject.transform.position.x -
+                                          _locationGenerator.LongOfGrassBlock / 2) +
+                                 Math.Abs(_foods[i].transform.position.y - gameObject.transform.position.y +
+                                          _locationGenerator.HeightOfGrassBlock / 2)) < distance)
+                            {
+                                number = i;
+
+                                distance = (Math.Abs(_foods[number].transform.position.x - gameObject.transform.position.x -
+                                                     _locationGenerator.LongOfGrassBlock / 2) +
+                                            Math.Abs(_foods[number].transform.position.y - gameObject.transform.position.y +
+                                                     _locationGenerator.LongOfGrassBlock / 2));
+                            }
+                        }
+                    }
+
+                    _target = _foods[number].transform.position;
+                    _seeker.StartPath(transform.position, _target + new Vector3(0f, 1.7f, 0), OnPathComplete);
+                    _way = WayPoint.Going;
+                }
             }
             else
             {

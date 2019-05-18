@@ -11,6 +11,7 @@ public class PlayerParametrs : MonoBehaviour
 
     private GameObject _playerPanel;
     private GameObject _winPanel;
+    private GameObject _deathPanel;
 
     public Text FoodHave;
     public Text WaterHave;
@@ -28,6 +29,9 @@ public class PlayerParametrs : MonoBehaviour
 
         _winPanel = GameObject.Find("WinPanel");
         _winPanel.SetActive(false);
+
+        _deathPanel = GameObject.Find("DeathPanel");
+        _deathPanel.SetActive(false);
 
         _collectRadioPart = _player.GetComponent<CollectRadioPart>();
         _foodNeeds = _player.GetComponent<FoodNeeds>();
@@ -48,6 +52,16 @@ public class PlayerParametrs : MonoBehaviour
         {
             _playerPanel.SetActive(false);
             _winPanel.SetActive(true);
+            Time.timeScale = 0f;
+        }
+    }
+
+    void CheckForDeath()
+    {
+        if (_foodNeeds.ReturnFood() < 0f || _waterNeeds.ReturnWater() < 0f)
+        {
+            _playerPanel.SetActive(false);
+            _deathPanel.SetActive(true);
             Time.timeScale = 0f;
         }
     }

@@ -32,6 +32,8 @@ public class LocationGenerator : MonoBehaviour
 	    HeightOfGrassBlock = 10.8f;
 	    Rand = new System.Random();
 
+	    Size = PlayerPrefs.GetInt("SizeOfMap");
+
         LocationCreateEmpty();	    
 	}
 
