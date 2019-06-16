@@ -5,7 +5,7 @@ public class FoodGeneration : MonoBehaviour
     private PlaceGeneration _placeGeneration;
     private LocationGenerator _locationGenerator;
 
-    public int[] XCoordsOfFood; //TODO убрать тут int[] и в waterGeneration, использовать данные напрямую из placegeneration
+    public int[] XCoordsOfFood; 
     public int[] YCoordsOfFood;
 
     public GameObject FoodBlock;

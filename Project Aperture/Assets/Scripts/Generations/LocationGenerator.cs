@@ -15,8 +15,7 @@ public class LocationGenerator : MonoBehaviour
     public GameObject BorderRight;    
 
     public GameObject CenterBlock;
-
-    //public GameObject Water;
+    
 
     public int Size;
 
@@ -24,8 +23,7 @@ public class LocationGenerator : MonoBehaviour
     public float HeightOfGrassBlock;
 
     public Random Rand;
-
-    // Use this for initialization
+    
     void Start ()
 	{
 	    LongOfGrassBlock = 19.2f;
