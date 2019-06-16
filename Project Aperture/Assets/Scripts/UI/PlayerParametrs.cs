@@ -44,6 +44,7 @@ public class PlayerParametrs : MonoBehaviour
     {
         UpdateText();
         CheckForWin();
+        CheckForDeath();
     }
 
     void CheckForWin()
